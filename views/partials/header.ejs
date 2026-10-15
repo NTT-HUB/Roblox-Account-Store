@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= typeof title !== 'undefined' ? title : 'Roblox Acc Shop' %></title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="/">🎮 Roblox<span>Acc</span></a>
+      <nav class="main-nav">
+        <a href="/">Trang chủ</a>
+        <a href="/shop">Cửa hàng</a>
+        <a href="/cart">Giỏ hàng <% if (cartCount > 0) { %><span class="badge"><%= cartCount %></span><% } %></a>
+        <a href="/admin">Admin</a>
+      </nav>
+    </div>
+  </header>
+  <main class="container">

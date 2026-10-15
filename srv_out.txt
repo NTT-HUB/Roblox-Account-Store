@@ -1,0 +1,2 @@
+Shop running: http://localhost:3000
+Admin:        http://localhost:3000/admin/login  (admin / admin123)

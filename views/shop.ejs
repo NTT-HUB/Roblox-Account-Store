@@ -1,0 +1,32 @@
+<%- include('partials/header', { title: 'Cửa hàng' }) %>
+<h2 class="section-title">Cửa hàng acc Roblox</h2>
+
+<form class="filters" method="get" action="/shop">
+  <select name="cat" onchange="this.form.submit()">
+    <option value="">Tất cả danh mục</option>
+    <% categories.forEach(function(c) { %>
+      <option value="<%= c.slug %>" <%= activeCat && activeCat.id === c.id ? 'selected' : '' %>><%= c.name %></option>
+    <% }); %>
+  </select>
+  <input type="text" name="q" placeholder="Tìm acc..." value="<%= q %>" />
+  <button class="btn" type="submit">Tìm</button>
+</form>
+
+<% if (products.length === 0) { %>
+  <p class="muted">Không có sản phẩm phù hợp.</p>
+<% } else { %>
+  <div class="grid grid-products">
+    <% products.forEach(function(p) { %>
+      <a class="card product-card" href="/product/<%= p.slug %>">
+        <div class="thumb" style="<%= p.thumbnail_url ? 'background-image:url(' + p.thumbnail_url + ')' : '' %>"></div>
+        <div class="product-info">
+          <div class="product-title"><%= p.title %></div>
+          <div class="muted small"><%= p.category_name %></div>
+          <div class="price"><%= formatVnd(p.price) %></div>
+        </div>
+      </a>
+    <% }); %>
+  </div>
+<% } %>
+
+<%- include('partials/footer') %>

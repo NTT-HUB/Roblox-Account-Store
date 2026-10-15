@@ -1,0 +1,28 @@
+<%- include('../partials/header', { title: 'Đơn hàng' }) %>
+<div class="admin-layout">
+  <%- include('_sidebar') %>
+  <div class="admin-content">
+    <h2>Đơn hàng</h2>
+    <table class="table">
+      <thead><tr><th>ID</th><th>Mã</th><th>Khách</th><th>Liên hệ</th><th>Tổng</th><th>Trạng thái</th><th>Ngày</th><th></th></tr></thead>
+      <tbody>
+        <% orders.forEach(function(o) { %>
+          <tr>
+            <td><%= o.id %></td>
+            <td><%= o.code %></td>
+            <td><%= o.buyer_name %></td>
+            <td class="muted small"><%= o.buyer_contact %></td>
+            <td><%= formatVnd(o.total) %></td>
+            <td><span class="status status-<%= o.status %>"><%= o.status %></span></td>
+            <td class="muted small"><%= o.created_at %></td>
+            <td><a class="btn btn-sm" href="/admin/orders/<%= o.id %>">Xem</a></td>
+          </tr>
+        <% }); %>
+        <% if (orders.length === 0) { %>
+          <tr><td colspan="8" class="muted">Chưa có đơn hàng.</td></tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<%- include('../partials/footer') %>

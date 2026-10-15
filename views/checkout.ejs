@@ -1,0 +1,30 @@
+<%- include('partials/header', { title: 'Thanh toán' }) %>
+<h2 class="section-title">Thanh toán</h2>
+
+<div class="checkout-wrap">
+  <div class="checkout-form-wrap">
+    <form method="post" action="/checkout" class="form">
+      <label>Họ tên
+        <input type="text" name="buyer_name" required />
+      </label>
+      <label>Liên hệ (Discord / Facebook / SĐT)
+        <input type="text" name="buyer_contact" required />
+      </label>
+      <label>Ghi chú
+        <textarea name="note" rows="3"></textarea>
+      </label>
+      <button class="btn btn-primary" type="submit">Đặt hàng</button>
+    </form>
+  </div>
+  <div class="checkout-summary">
+    <h3>Đơn hàng</h3>
+    <ul class="summary-list">
+      <% cart.forEach(function(i) { %>
+        <li><span><%= i.title %> × <%= i.qty %></span><span><%= formatVnd(i.price * i.qty) %></span></li>
+      <% }); %>
+    </ul>
+    <div class="summary-total">Tổng: <strong><%= formatVnd(total) %></strong></div>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

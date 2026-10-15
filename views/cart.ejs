@@ -1,0 +1,35 @@
+<%- include('partials/header', { title: 'Giỏ hàng' }) %>
+<h2 class="section-title">Giỏ hàng</h2>
+
+<% if (cart.length === 0) { %>
+  <p class="muted">Giỏ hàng trống. <a href="/shop">Tiếp tục mua</a>.</p>
+<% } else { %>
+  <table class="table">
+    <thead><tr><th>Acc</th><th>Giá</th><th>SL</th><th>Tổng</th><th></th></tr></thead>
+    <tbody>
+      <% cart.forEach(function(i) { %>
+        <tr>
+          <td><%= i.title %></td>
+          <td><%= formatVnd(i.price) %></td>
+          <td><%= i.qty %></td>
+          <td><%= formatVnd(i.price * i.qty) %></td>
+          <td>
+            <form method="post" action="/cart/remove" style="display:inline">
+              <input type="hidden" name="product_id" value="<%= i.id %>" />
+              <button class="btn btn-danger btn-sm" type="submit">Xoá</button>
+            </form>
+          </td>
+        </tr>
+      <% }); %>
+    </tbody>
+    <tfoot>
+      <tr><th colspan="3">Tổng cộng</th><th colspan="2"><%= formatVnd(total) %></th></tr>
+    </tfoot>
+  </table>
+  <div class="actions">
+    <a class="btn" href="/shop">Tiếp tục mua</a>
+    <a class="btn btn-primary" href="/checkout">Thanh toán</a>
+  </div>
+<% } %>
+
+<%- include('partials/footer') %>

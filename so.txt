@@ -1,0 +1,2 @@
+Created admin / admin123
+Seed done: 7 products, 4 categories.

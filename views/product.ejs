@@ -1,0 +1,44 @@
+<%- include('partials/header', { title: p.title }) %>
+<div class="breadcrumb muted small">
+  <a href="/">Trang chủ</a> / <a href="/shop">Cửa hàng</a> / <a href="/shop?cat=<%= p.category_slug %>"><%= p.category_name %></a> / <%= p.title %>
+</div>
+
+<div class="product-detail">
+  <div class="product-detail-thumb" style="<%= p.thumbnail_url ? 'background-image:url(' + p.thumbnail_url + ')' : '' %>"></div>
+  <div class="product-detail-info">
+    <h1><%= p.title %></h1>
+    <div class="muted small">Danh mục: <%= p.category_name %></div>
+    <div class="price big"><%= formatVnd(p.price) %></div>
+    <div class="stock">
+      <% if (p.status === 'available' && p.stock > 0) { %>
+        <span class="badge-ok">Còn hàng</span>
+      <% } else { %>
+        <span class="badge-sold">Hết hàng</span>
+      <% } %>
+    </div>
+    <div class="description"><%- (p.description || '').replace(/\n/g, '<br>') %></div>
+    <% if (p.status === 'available' && p.stock > 0) { %>
+      <form method="post" action="/cart/add">
+        <input type="hidden" name="product_id" value="<%= p.id %>" />
+        <button class="btn btn-primary" type="submit">Thêm vào giỏ</button>
+      </form>
+    <% } %>
+  </div>
+</div>
+
+<% if (related.length > 0) { %>
+  <h2 class="section-title">Acc cùng danh mục</h2>
+  <div class="grid grid-products">
+    <% related.forEach(function(r) { %>
+      <a class="card product-card" href="/product/<%= r.slug %>">
+        <div class="thumb" style="<%= r.thumbnail_url ? 'background-image:url(' + r.thumbnail_url + ')' : '' %>"></div>
+        <div class="product-info">
+          <div class="product-title"><%= r.title %></div>
+          <div class="price"><%= formatVnd(r.price) %></div>
+        </div>
+      </a>
+    <% }); %>
+  </div>
+<% } %>
+
+<%- include('partials/footer') %>

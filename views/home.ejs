@@ -1,0 +1,36 @@
+<%- include('partials/header', { title: 'Trang chủ' }) %>
+<section class="hero">
+  <h1>Mua acc Roblox uy tín</h1>
+  <p>Acc trắng, acc VIP, Limited, Robux — giao ngay sau khi thanh toán.</p>
+  <a class="btn btn-primary" href="/shop">Xem cửa hàng</a>
+</section>
+
+<h2 class="section-title">Danh mục</h2>
+<div class="grid grid-cat">
+  <% categories.forEach(function(c) { %>
+    <a class="card cat-card" href="/shop?cat=<%= c.slug %>">
+      <div class="cat-name"><%= c.name %></div>
+      <div class="muted"><%= c.description || '' %></div>
+    </a>
+  <% }); %>
+</div>
+
+<h2 class="section-title">Acc mới nhất</h2>
+<% if (featured.length === 0) { %>
+  <p class="muted">Chưa có sản phẩm. Vào <a href="/admin">Admin</a> để thêm.</p>
+<% } else { %>
+  <div class="grid grid-products">
+    <% featured.forEach(function(p) { %>
+      <a class="card product-card" href="/product/<%= p.slug %>">
+        <div class="thumb" style="<%= p.thumbnail_url ? 'background-image:url(' + p.thumbnail_url + ')' : '' %>"></div>
+        <div class="product-info">
+          <div class="product-title"><%= p.title %></div>
+          <div class="muted small"><%= p.category_name %></div>
+          <div class="price"><%= formatVnd(p.price) %></div>
+        </div>
+      </a>
+    <% }); %>
+  </div>
+<% } %>
+
+<%- include('partials/footer') %>

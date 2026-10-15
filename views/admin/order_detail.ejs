@@ -1,0 +1,45 @@
+<%- include('../partials/header', { title: 'Đơn ' + o.code }) %>
+<div class="admin-layout">
+  <%- include('_sidebar') %>
+  <div class="admin-content">
+    <h2>Đơn hàng <%= o.code %></h2>
+    <div class="order-info">
+      <div><b>Khách:</b> <%= o.buyer_name %></div>
+      <div><b>Liên hệ:</b> <%= o.buyer_contact %></div>
+      <div><b>Tổng:</b> <%= formatVnd(o.total) %></div>
+      <div><b>Ngày:</b> <%= o.created_at %></div>
+      <div><b>Ghi chú:</b> <%= o.note || '—' %></div>
+    </div>
+
+    <form method="post" action="/admin/orders/<%= o.id %>/status" class="inline-form">
+      <label>Cập nhật trạng thái
+        <select name="status">
+          <% ['pending','paid','delivered','cancelled'].forEach(function(s) { %>
+            <option value="<%= s %>" <%= o.status === s ? 'selected' : '' %>><%= s %></option>
+          <% }); %>
+        </select>
+      </label>
+      <button class="btn btn-primary" type="submit">Lưu</button>
+    </form>
+
+    <h3>Acc trong đơn</h3>
+    <table class="table">
+      <thead><tr><th>Acc</th><th>Giá</th><th>Username</th><th>Password</th><th>Email</th><th>Thông tin thêm</th></tr></thead>
+      <tbody>
+        <% items.forEach(function(it) { %>
+          <tr>
+            <td><%= it.snapshot_title %></td>
+            <td><%= formatVnd(it.price) %></td>
+            <td><code><%= it.roblox_username || '—' %></code></td>
+            <td><code><%= it.roblox_password || '—' %></code></td>
+            <td><code><%= it.roblox_email || '—' %></code></td>
+            <td class="muted small"><%= it.extra_info || '—' %></td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+
+    <a class="btn" href="/admin/orders">← Danh sách đơn</a>
+  </div>
+</div>
+<%- include('../partials/footer') %>

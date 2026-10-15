@@ -1,0 +1,8 @@
+<%- include('partials/header', { title: 'Đặt hàng thành công' }) %>
+<div class="success-box">
+  <h2>✅ Đặt hàng thành công!</h2>
+  <p>Mã đơn hàng của bạn: <strong><%= code %></strong></p>
+  <p class="muted">Vui lòng liên hệ admin để thanh toán và nhận acc. Sau khi xác nhận, admin sẽ cập nhật trạng thái đơn.</p>
+  <a class="btn btn-primary" href="/shop">Tiếp tục mua</a>
+</div>
+<%- include('partials/footer') %>

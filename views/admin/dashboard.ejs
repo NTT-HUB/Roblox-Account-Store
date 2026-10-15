@@ -1,0 +1,31 @@
+<%- include('../partials/header', { title: 'Admin Dashboard' }) %>
+<div class="admin-layout">
+  <%- include('_sidebar') %>
+  <div class="admin-content">
+    <h2>Dashboard</h2>
+    <div class="stats">
+      <div class="stat-card"><div class="stat-num"><%= stats.products %></div><div>Tổng acc</div></div>
+      <div class="stat-card"><div class="stat-num"><%= stats.available %></div><div>Còn bán</div></div>
+      <div class="stat-card"><div class="stat-num"><%= stats.sold %></div><div>Đã bán</div></div>
+      <div class="stat-card"><div class="stat-num"><%= stats.categories %></div><div>Danh mục</div></div>
+      <div class="stat-card"><div class="stat-num"><%= stats.orders %></div><div>Đơn hàng</div></div>
+      <div class="stat-card"><div class="stat-num"><%= formatVnd(stats.revenue) %></div><div>Doanh thu</div></div>
+    </div>
+    <h3>Đơn hàng mới nhất</h3>
+    <table class="table">
+      <thead><tr><th>Mã</th><th>Khách</th><th>Tổng</th><th>Trạng thái</th><th>Ngày</th></tr></thead>
+      <tbody>
+        <% recent.forEach(function(o) { %>
+          <tr>
+            <td><a href="/admin/orders/<%= o.id %>"><%= o.code %></a></td>
+            <td><%= o.buyer_name %></td>
+            <td><%= formatVnd(o.total) %></td>
+            <td><span class="status status-<%= o.status %>"><%= o.status %></span></td>
+            <td class="muted small"><%= o.created_at %></td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<%- include('../partials/footer') %>

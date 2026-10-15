@@ -1,0 +1,56 @@
+<%- include('../partials/header', { title: p ? 'Sửa acc' : 'Thêm acc' }) %>
+<div class="admin-layout">
+  <%- include('_sidebar') %>
+  <div class="admin-content">
+    <h2><%= p ? 'Sửa acc #' + p.id : 'Thêm acc mới' %></h2>
+    <% if (error) { %><div class="alert-error"><%= error %></div><% } %>
+    <form method="post" action="<%= p ? '/admin/products/' + p.id + '/edit' : '/admin/products/new' %>" class="form form-grid">
+      <label class="span-2">Tiêu đề
+        <input type="text" name="title" value="<%= p ? p.title : '' %>" required />
+      </label>
+      <label>Danh mục
+        <select name="category_id" required>
+          <% categories.forEach(function(c) { %>
+            <option value="<%= c.id %>" <%= p && String(p.category_id) === String(c.id) ? 'selected' : '' %>><%= c.name %></option>
+          <% }); %>
+        </select>
+      </label>
+      <label>Giá (VND)
+        <input type="number" name="price" value="<%= p ? p.price : 0 %>" min="0" required />
+      </label>
+      <label>Kho
+        <input type="number" name="stock" value="<%= p ? p.stock : 1 %>" min="0" />
+      </label>
+      <label>Trạng thái
+        <select name="status">
+          <option value="available" <%= p && p.status === 'available' ? 'selected' : '' %>>available</option>
+          <option value="sold" <%= p && p.status === 'sold' ? 'selected' : '' %>>sold</option>
+          <option value="hidden" <%= p && p.status === 'hidden' ? 'selected' : '' %>>hidden</option>
+        </select>
+      </label>
+      <label class="span-2">Ảnh (URL)
+        <input type="text" name="thumbnail_url" value="<%= p ? p.thumbnail_url || '' : '' %>" />
+      </label>
+      <label class="span-2">Mô tả
+        <textarea name="description" rows="4"><%= p ? p.description || '' : '' %></textarea>
+      </label>
+      <label>Username Roblox
+        <input type="text" name="roblox_username" value="<%= p ? p.roblox_username || '' : '' %>" />
+      </label>
+      <label>Password Roblox
+        <input type="text" name="roblox_password" value="<%= p ? p.roblox_password || '' : '' %>" />
+      </label>
+      <label>Email Roblox
+        <input type="text" name="roblox_email" value="<%= p ? p.roblox_email || '' : '' %>" />
+      </label>
+      <label>Thông tin thêm
+        <input type="text" name="extra_info" value="<%= p ? p.extra_info || '' : '' %>" />
+      </label>
+      <div class="span-2 actions">
+        <button class="btn btn-primary" type="submit">Lưu</button>
+        <a class="btn" href="/admin/products">Huỷ</a>
+      </div>
+    </form>
+  </div>
+</div>
+<%- include('../partials/footer') %>
